@@ -33,6 +33,7 @@ public class ClienteService {
 		updateData(newObj,obj);
 		return repo.save(newObj);
 	}
+	
 	public void delete(Integer id) {
 		find(id);
 		try {
