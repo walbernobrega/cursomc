@@ -1,5 +1,6 @@
 package com.curso.cursomc.services;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.curso.cursomc.domain.Cidade;
 import com.curso.cursomc.domain.Cliente;
@@ -37,6 +39,9 @@ public class ClienteService {
 
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+
+	@Autowired
+	private S3Service s3Service;
 	
 	public Cliente find(Integer id) {
 		UserSS user = UserService.authenticated();
@@ -108,4 +113,7 @@ public class ClienteService {
 		newObj.setEmail(obj.getEmail());
 	}
 	
+	public URI uploadProfilePicture(MultipartFile multiPartFile) {
+		return s3Service.uploadFile(multiPartFile);
+	}
 }
